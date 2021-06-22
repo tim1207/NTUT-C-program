@@ -12,14 +12,14 @@ void input(char* s) {
 }
 typedef struct node
 {
-	int num;
+	int id; 	
 	int day;
 	int edges;
 	struct node **Next;
 } Node;
-int dfs(Node* node, int n,int length) {
+int bfs(Node* node, int n,int length) {
 
-	if (node->num == n - 1) {
+	if (node->id == n - 1) { //最後一個
 		return length;
 	}
 	int max = 0;
@@ -27,11 +27,11 @@ int dfs(Node* node, int n,int length) {
 	for (int i = 0; i < node->edges; i++) {
 		if (node->Next[i] != NULL) {
 			length += node->Next[i]->day;
-			int result = dfs(node->Next[i], n, length);
+			int result = bfs(node->Next[i], n, length);
 			if ( result > max) {
 				max =  result;
 			}
-			length -= node->Next[i]->day;
+			length -= node->Next[i]->day; //平行時所走的路
 		}
 	}
 
@@ -47,12 +47,12 @@ int main() {
 		scanf("%d\n" ,&N);
 		
 		Node** nodes = (Node**)calloc(N, sizeof(Node*));
-		for (int j = 0; j < N; j++)
+		for (int j = 0; j < N; j++)// 初始化
 		{
 			nodes[j] = (Node *)calloc(1, sizeof(Node));
 			nodes[j]->day = 0;
 			nodes[j]->edges = 0;
-			nodes[j]->num = j;
+			nodes[j]->id = j;
 			nodes[j]->Next = NULL; // (Node**)calloc(N, sizeof(Node*));
 		}
 		for (int j = 0; j < N; j++) {
@@ -61,7 +61,7 @@ int main() {
 			gets(s);
 			char *split = strtok(s, " ");
 			//printf("%s",split);
-			nodes[j]->num = j;
+			nodes[j]->id = j;
 			nodes[j]->day = atoi(split);
 			split = strtok(NULL, " ");
 			nodes[j]->edges = atoi(split);
@@ -84,7 +84,7 @@ int main() {
 				split = strtok(NULL, " ");
 			}
 		}
-		ans[i] = dfs(nodes[0], N, nodes[0]->day);
+		ans[i] = bfs(nodes[0], N, nodes[0]->day);
 		printf("%d\n", ans[i]);
 		
 

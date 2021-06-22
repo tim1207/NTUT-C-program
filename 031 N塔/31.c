@@ -8,7 +8,7 @@ void input(char *s){
     if( s[strlen(s)-1] == '\n')
         s[strlen(s)-1] = '\0';
 }
-int dfs(int **map,int *arrive,int n,int city ,int distance){
+int bfs(int **map,int *arrive,int n,int city ,int distance){
    
     int finish = 1;
 
@@ -24,7 +24,7 @@ int dfs(int **map,int *arrive,int n,int city ,int distance){
         if(map[city][i] != 0 && arrive[i] == 0 ){
             arrive[i] = 1;
             printf("%d -> %d distance:%d\n",city+1,i+1,map[city][i]);
-            int temp = dfs(map,arrive,n,i,distance+map[city][i]);
+            int temp = bfs(map,arrive,n,i,distance+map[city][i]);
             printf("temp: %d\n",temp);
             arrive[i] = 0;
             if(min > temp){
@@ -73,7 +73,7 @@ int main(){
     //     }
     //     printf("\n");
     // }
-    printf("%d",dfs(map,arrive,n,0,0));
+    printf("%d",bfs(map,arrive,n,0,0));
 }
 /*
 賴先生騎腳踏車挑戰一日N塔，N<10。

@@ -70,7 +70,7 @@ int main() {
 		gradeAvg[i] /= M;
 		//printf("%s:%f\n", studentName[i], gradeAvg[i]);
 	}
-
+	//改排序
 	for (int i = 0; i < N; i++) {
 		for (int j = i + 1; j < N; j++) {
 			if (gradeAvg[i] < gradeAvg[j]) {

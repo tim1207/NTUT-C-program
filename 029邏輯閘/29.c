@@ -85,9 +85,11 @@ int main(int argc, char *argv[]){
     fgets(signalInput, 20, stdin);
     fgets(gateInput, 20, stdin);
     for (int i=0; i<4; i++)
-        signals[i] = signalInput[i*2] - '0';
+        signals[i] = signalInput[i*2] - '0';// because of ,
+        
     for (int i=0; i<6; i++)
         gates_c[i] = gateInput[i*2];
+
     for (int i=0; i<6; i++) {
         if (gates_c[i] == 'A')
             gates[i] = and.GateValue();
